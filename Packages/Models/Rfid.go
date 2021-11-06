@@ -31,6 +31,16 @@ var laps []Lap
 var lapsChannelBufferLocker = make(chan int, 1)
 var lapsChannelDBLocker = make(chan int, 1)
 
+//average results struct
+type AverageResult struct {
+  TagID									string
+	DiscoveryUnixTime     int64
+	Antenna               uint8
+	AntennaIP             string
+}
+
+var AverageResults []AverageResult
+
 // Start antenna listener
 func StartAntennaListener() {
 
@@ -315,20 +325,6 @@ func calculateLapPosition(lastLap Lap) (lapPosition uint) {
 	return
 }
 
-func getZeroLapGap(lastLap Lap) (zeroLapGap int64) {
-
-	if len(laps) != 0  {
-		for _, lap := range laps {
-			if lap.RaceID == lastLap.RaceID && lap.LapNumber == 0 && lap.CurrentRacePosition == 1 {
-				zeroLapGap = lastLap.DiscoveryUnixTime - lap.DiscoveryUnixTime
-			}
-		}
-	} else {
-		zeroLapGap = 0
-	}
-	return
-}
-
 func containsTagID(laps []Lap, needle Lap) bool {
 	for _, lap := range laps {
 		if lap.TagID == needle.TagID {
@@ -458,34 +454,6 @@ func getTimeBehindTheLeader(lastLap Lap) (timeBehindTheLeader int64) {
 	return
 }
 
-
-func getMyPreviousBestLapTime(lastLap Lap) (myPreviousBestLapTime int64) {
-
-	if len(laps)!=0 {
-		//get my previous BestLapTime
-		var previousLaps []Lap
-
-		for _, savedLap := range laps {
-			if savedLap.RaceID == lastLap.RaceID && savedLap.TagID == lastLap.TagID && savedLap.LapNumber != lastLap.LapNumber && savedLap.LapNumber != 0  {
-				previousLaps = append(previousLaps, savedLap)
-			}
-		}
-
-		if len(previousLaps) > 0 {
-			sort.Slice(previousLaps, func(i, j int) bool {
-				return previousLaps[i].BestLapTime < previousLaps[j].BestLapTime
-			})
-			myPreviousBestLapTime = previousLaps[0].BestLapTime
-
-		} else {
-			myPreviousBestLapTime = 0
-		}
-
-	} else {
-		myPreviousBestLapTime = 0
-	}
-	return
-}
 
 func calculateLapTime(lastLap Lap) (lapTime int64) {
 	if len(laps) > 0 {
