@@ -59,7 +59,7 @@ func main() {
 
 	// Database Migrations
 	log.Println("Creating or changing database structures (applying migrations)...")
-	Models.DB.AutoMigrate(&Models.Lap{}, &Models.User{}, &Models.Race{}, &Models.Checkin{}, &Models.Admin{})
+	Models.DB.AutoMigrate(&Models.Lap{})
 
 	// Create new system administator if them not exists
 
