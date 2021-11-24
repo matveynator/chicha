@@ -138,4 +138,5 @@ cd ~/chicha
 sh Scripts/RaceTest.sh
 ```
  
+Thank you [contributors](https://github.com/matveynator/chicha/graphs/contributors)! (and Justeen also).
 
