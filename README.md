@@ -133,11 +133,13 @@ ls ~/chicha/downloads
 ```
 
 ## INSTALL chicha for exaple: 
+```
 binary: /usr/local/bin/chicha
 data dir: /opt/chicha (database and config files)
 log: /var/log/chicha.log
 pid: /var/run/chicha.pid
 lock: /var/lock/subsys/chicha
+```
 
 ```
 apt-get install daemonize
