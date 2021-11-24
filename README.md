@@ -132,6 +132,12 @@ sh  Scripts/crosscompile.sh
 ls ~/chicha/downloads
 ```
 
+## INSTALL chicha for exaple: (data dir = /opt/chicha, binary = /usr/local/bin/chicha)
+```
+apt-get install daemonize
+echo "sleep10; daemonize -p /var/run/chicha.pid -l /var/lock/subsys/chicha -c /opt/chicha -e /var/log/chicha.log -o /var/log/chicha.log -u root /usr/local/bin/chicha" >> /etc/rc.local
+```
+
 ### Run race test (edit options inside: Scripts/RaceTest.sh)/
 ```
 cd ~/chicha
